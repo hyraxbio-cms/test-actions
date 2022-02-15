@@ -6,6 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Checking "test3" exists in test.txt
         run: grep "test3" -q test.txt && echo "CORRECT" || sed -i '3s/.*/broken/' test.txt
       - name: If "test5" does not exist in test.txt, replaces line 3
