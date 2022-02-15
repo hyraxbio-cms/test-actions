@@ -1,4 +1,4 @@
-name: CNAME & Repo Config Checker for staging
+name: CNAME & Repo Config Checker
 
 on: [push]
 
