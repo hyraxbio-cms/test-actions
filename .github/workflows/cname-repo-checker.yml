@@ -11,3 +11,4 @@ jobs:
         run: grep "test3" -q test.txt && echo "CORRECT" || sed -i '3s/.*/broken/' test.txt
       - name: If "test5" does not exist in test.txt, replaces line 3
         run: grep "test5" -q test.txt && echo "SOMETHING BROKE" || sed -i '3s/.*/  it works! and this is line 3/' test.txt
+      - run: if git diff-index --quiet HEAD --; then echo "No changes"; else git commit -m "Changed line 3" && git push; fi
