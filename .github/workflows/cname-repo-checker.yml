@@ -1,0 +1,12 @@
+name: CNAME & Repo Config Checker for staging
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking "test3" exists in test.txt
+        run: grep "test3" -q test.txt && echo "CORRECT" || sed -i '3s/.*/broken/' test.txt
+      - name: If "test5" does not exist in test.txt, replaces line 3
+        run: grep "test5" -q test.txt && echo "SOMETHING BROKE" || sed -i '3s/.*/  it works! and this is line 3/' test.txt
