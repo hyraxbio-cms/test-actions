@@ -16,5 +16,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+      - name: Testy tests
+        run: if [ "same" === "same" ]; then echo "its a match"; else echo "No match here"; fi
       - name: If changes have been made, commit and push
-        run: if git diff-index --quiet HEAD --; then git status; else git add -A && git commit -m "Changed line 3" && git push; fi
+        run: if git diff-index --quiet HEAD --; then echo "No changes"; else git add -A && git commit -m "Changed line 3" && git push; fi
