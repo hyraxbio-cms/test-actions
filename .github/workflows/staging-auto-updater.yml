@@ -8,20 +8,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup SSH Keys and known_hosts
-        env:
-            SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-            ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-            ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
       - name: Push changes to staging repo
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
+          git config --global url."https://${{ secrets.ACESS_TOKEN }}@github".insteadOf https://github
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
           git clone git@github.com:hyrax-stanley/test-actions.git
           cd test-actions
           git pull git@github.com:hyraxbio-cms/test-actions.git main --allow-unrelated-histories
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
           if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Updated from live" && git push; else echo "No changes"; fi
         
