@@ -8,6 +8,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - uses: webfactory/ssh-agent@v0.5.2
+        with:
+          ssh-private-key: |
+            ${{ secrets.HYRAX_HUGO_BASE_THEME_DEPLOY_KEY }}
+            ${{ secrets.HYRAX_HUGO_ASSETS_DEPLOY_KEY }}
       - name: Push changes to staging repo
         run: |
           git clone git@github.com:hyrax-stanley/test-actions.git
