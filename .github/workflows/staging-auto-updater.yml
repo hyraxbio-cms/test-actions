@@ -12,14 +12,16 @@ jobs:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           repository: hyrax-stanley/test-actions
           path: test-actions
-      - name: ls
+      - name: ls before
         run: ls
       - name: Enter directory
         run: cd test-actions
+      - name: ls after
+        run: ls
       - name: Output git status
-        run: status=$(git status) && echo "$status"
+        run: git status
       - name: Output remote origin URL
-        run:  origin=$(git remote show origin) && echo "$origin"
+        run:  git remote show origin
       - name: Push changes to staging repo
         run: |
           git config --global url."https://${{ secrets.ACESS_TOKEN }}@github".insteadOf https://github
