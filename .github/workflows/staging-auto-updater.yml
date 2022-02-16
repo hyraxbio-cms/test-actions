@@ -8,11 +8,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - uses: webfactory/ssh-agent@v0.5.2
         with:
-          ssh-private-key: |
-            ${{ secrets.HYRAX_HUGO_BASE_THEME_DEPLOY_KEY }}
-            ${{ secrets.HYRAX_HUGO_ASSETS_DEPLOY_KEY }}
+          persist-credentials: false
+      - name: Reconfigure git to use HTTP authentication
+        run: >
+          git config --global url."https://github.com/".insteadOf
+          ssh://git@github.com/
       - name: Push changes to staging repo
         run: |
           git clone git@github.com:hyrax-stanley/test-actions.git
@@ -21,3 +22,4 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Updated from live" && git push; else echo "No changes"; fi
+        
