@@ -12,6 +12,10 @@ jobs:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           repository: hyrax-stanley/test-actions
           path: test-actions
+      - name: ls
+        run: ls
+      - name: Enter directory
+        run: cd test-actions
       - name: Output git status
         run: status=$(git status) && echo "$status"
       - name: Output remote origin URL
