@@ -12,19 +12,11 @@ jobs:
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           repository: hyrax-stanley/test-actions
           path: test-actions
-      - name: Get repo info
+      - name: Pull live changes and push to staging
         run: |
-          echo ">> ls before:"
-          ls
           cd test-actions
-          echo ">> ls after:"
-          ls
-          echo ">> Output git status:"
-          git status
-          echo ">> Output remote origin URL:"
-          git remote show origin
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          git pull git@github.com:hyraxbio-cms/test-actions.git main --allow-unrelated-histories
+          git config user.name "Jacques Louw"
+          git config user.email "<jacques@hyraxbio.com>"
+          git pull https://github.com/hyraxbio-cms/test-actions.git main --allow-unrelated-histories
           if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Updated from live" && git push; else echo "No changes"; fi
         
