@@ -15,7 +15,7 @@ jobs:
           repoExpectedVal="hyrax-stanley/staging-hyraxbio.com"
           config=$(yaml2json static/admin/config.yml) && echo "$config"
           repo=$(echo "$config" | jq -r '.backend.repo') && echo "$repo"
-          if ! [ "$repo" == "$repoExpectedVal" ]; then newjson=$(echo "$config" | jq --arg repo "$repoExpectedVal" \ '.backend.repo=$repo') && echo $newjson > static/admin/config.yml && cat static/admin/config.yml | yq ea -P - |& tee static/admin/config.yml && echo "> modified static/admin/config.yml file:" && cat static/admin/config.yml; fi
+          if ! [ "$repo" == "$repoExpectedVal" ]; then newjson=$(echo "$config" | jq --arg repo "$repoExpectedVal" \ '.backend.repo=$repo') && echo "newjson:" && echo "$newjson" && echo $newjson > static/admin/config.yml && cat static/admin/config.yml | yq ea -P - |& tee static/admin/config.yml && echo "> modified static/admin/config.yml file:" && cat static/admin/config.yml; fi
       - name: Check & fix CNAME if necessary
         run: |
           cnameExpectedVal="hyraxv2.ajp-sandbox.co.za"
