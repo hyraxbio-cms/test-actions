@@ -1,4 +1,4 @@
-name: CNAME & Repo Config Checker test
+name: CNAME & Repo Config Checker
 
 on: [push]
 
@@ -8,10 +8,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Checking "test3" exists in test.txt
-        run: grep "test3" -q test.txt && echo "CORRECT" || sed -i '3s/.*/broken/' test.txt
-      - name: If "test5" does not exist in test.txt, replaces line 3
-        run: grep "test5" -q test.txt && echo "SOMETHING BROKE" || sed -i '3s/.*/  it works! and this is line 3/' test.txt
+      - name: Install deps
+        run: sudo snap install remarshal && sudo snap install jq && sudo snap install yq
+      - name: Set expected repo & CNAME values
+        run: |
+          repoExpectedVal="hyrax-stanley/staging-hyraxbio.com"
+          cnameExpectedVal="hyraxv2.ajp-sandbox.co.za"
+      - name: Check & fix repo if necessary
+        run: |
+          config=$(yaml2json static/admin/config.yml) && echo "$config"
+          repo=$(echo "$config" | jq -r '.backend.repo') && echo "$repo"
+          if ! [ "$repo" == "$repoExpectedVal" ]; then echo "> modified static/admin/config.yml file..." && newjson=$(echo "$config" | jq --arg repo "$repoExpectedVal" \ '.backend.repo=$repo') && echo $newjson > static/admin/config.yml && cat static/admin/config.yml | yq ea -P - |& tee static/admin/config.yml; fi
+      - name: Check & fix CNAME if necessary
+        run: |
+          cname=$(cat static/CNAME)
+          if ! [ "$cname" == "$cnameExpectedVal" ]; then echo "> modified CNAME file..." && echo "$cnameExpectedVal" > static/CNAME; fi
       - name: Setup git config
         run: |
           git config user.name "GitHub Actions Bot"
