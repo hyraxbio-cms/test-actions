@@ -8,6 +8,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          repository: hyrax-stanley/test-actions
+          path: test-actions
+      - name: Output remote origin URL
+        run: git config --get remote.origin.url
       - name: Push changes to staging repo
         run: |
           git config --global url."https://${{ secrets.ACESS_TOKEN }}@github".insteadOf https://github
