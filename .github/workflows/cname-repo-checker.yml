@@ -1,4 +1,4 @@
-name: CNAME & Repo Config Checker4
+name: CNAME & Repo Config Checker6
 
 on: [push]
 
@@ -26,4 +26,4 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
       - name: If changes have been made, commit and push
-        run: if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Fixed CNAME/repo4" && git push; else echo "No changes"; fi
+        run: if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Fixed CNAME/repo6" && git push; else echo "No changes"; fi
