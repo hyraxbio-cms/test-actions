@@ -12,13 +12,13 @@ jobs:
         run: sudo snap install remarshal && sudo snap install jq && sudo snap install yq
       - name: Check & fix repo if necessary
         run: |
-          repoExpectedVal="hyrax-stanley/staging-hyraxbio.com"
+          repoExpectedVal="hyraxbio-cms/hyraxbio.com-v2"
           config=$(yaml2json static/admin/config.yml) && echo "$config"
           repo=$(echo "$config" | jq -r '.backend.repo') && echo "$repo"
           if ! [ "$repo" == "$repoExpectedVal" ]; then echo "> modified static/admin/config.yml file..." && newjson=$(echo "$config" | jq --arg repo "$repoExpectedVal" \ '.backend.repo=$repo') && echo $newjson > static/admin/config.yml && cat static/admin/config.yml | yq ea -P - |& tee static/admin/config.yml; fi
       - name: Check & fix CNAME if necessary
         run: |
-          cnameExpectedVal="hyraxv2.ajp-sandbox.co.za"
+          cnameExpectedVal="hyraxbio.com"
           cname=$(cat static/CNAME)
           if ! [ "$cname" == "$cnameExpectedVal" ]; then echo "> modified CNAME file..." && echo "$cnameExpectedVal" > static/CNAME; fi
       - name: Setup git config
