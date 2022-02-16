@@ -13,9 +13,9 @@ jobs:
           repository: hyrax-stanley/test-actions
           path: test-actions
       - name: Output git status
-        run: git status
+        run: status=$(git status) && echo "$status"
       - name: Output remote origin URL
-        run: git remote show origin
+        run:  origin=$(git remote show origin) && echo "$origin"
       - name: Push changes to staging repo
         run: |
           git config --global url."https://${{ secrets.ACESS_TOKEN }}@github".insteadOf https://github
