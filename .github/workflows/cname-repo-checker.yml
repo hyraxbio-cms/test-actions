@@ -18,7 +18,7 @@ jobs:
           if ! [ "$repo" == "$repoExpectedVal" ]; then newjson=$(echo "$config" | jq --arg repo "$repoExpectedVal" \ '.backend.repo=$repo') && echo $newjson > static/admin/config.yml && echo "static/admin/config.yml as json:" && cat static/admin/config.yml && cat static/admin/config.yml | yq -P && cat static/admin/config.yml | yq -P |& tee static/admin/config.yml && echo "> modified static/admin/config.yml file:" && cat static/admin/config.yml; fi
       - name: Check & fix CNAME if necessary
         run: |
-          ccnameExpectedVal="hyraxv2.ajp-sandbox.co.za"
+          cnameExpectedVal="hyraxv2.ajp-sandbox.co.za"
           cname=$(cat static/CNAME)
           if ! [ "$cname" == "$cnameExpectedVal" ]; then echo "$cnameExpectedVal" > static/CNAME && echo "> modified CNAME file:" && cat static/CNAME; fi
       - name: Setup git config
