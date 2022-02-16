@@ -1,4 +1,4 @@
-name: CNAME & Repo Config Checker
+name: CNAME & Repo Config Checker2
 
 on: [push]
 
