@@ -23,13 +23,8 @@ jobs:
           git status
           echo ">> Output remote origin URL:"
           git remote show origin
-      - name: Push changes to staging repo
-        run: |
-          git config --global url."https://${{ secrets.ACESS_TOKEN }}@github".insteadOf https://github
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          git clone git@github.com:hyrax-stanley/test-actions.git
-          cd test-actions
           git pull git@github.com:hyraxbio-cms/test-actions.git main --allow-unrelated-histories
           if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Updated from live" && git push; else echo "No changes"; fi
         
