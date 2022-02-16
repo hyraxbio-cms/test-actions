@@ -15,8 +15,9 @@ jobs:
       - name: Pull live changes and push to staging
         run: |
           cd test-actions
-          git config user.name "Jacques Louw"
-          git config user.email "<jacques@hyraxbio.com>"
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
           git pull https://github.com/hyraxbio-cms/test-actions.git main --allow-unrelated-histories
+          git status
           if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Updated from live" && git push; else echo "No changes"; fi
         
