@@ -18,8 +18,5 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git pull https://github.com/hyraxbio-cms/test-actions.git main --allow-unrelated-histories
-          echo "> git status:" && git status
-          echo "> git status: --porcelain" && git status --porcelain
-          if [ -n "$(git status --porcelain)" ]; then echo "I went where commit should happen"; else echo "I went where nothing happens"; fi
-          if [ -n "$(git status --porcelain)" ]; then git add -A && git commit -m "Updated from live" && git push; else echo "No changes"; fi
+          git push
         
