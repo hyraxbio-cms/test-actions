@@ -1,6 +1,9 @@
 name: staging-auto-updater
 
-on: [push]
+on:
+  push:
+      branches:
+        - staging
 
 jobs:
   build:
@@ -25,6 +28,6 @@ jobs:
         with:
           repository: hyrax-stanley/test-actions
           directory: test-actions
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.G_ACCESS_TOKEN }}
           branch: ${{ github.ref }}
         
