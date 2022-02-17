@@ -22,7 +22,7 @@ jobs:
           cd test-actions
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          git pull https://github.com/hyraxbio-cms/test-actions.git main --allow-unrelated-histories
+          git pull https://github.com/hyraxbio-cms/test-actions.git staging --allow-unrelated-histories
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
