@@ -29,5 +29,5 @@ jobs:
           repository: hyrax-stanley/test-actions
           directory: test-actions
           github_token: ${{ secrets.G_ACCESS_TOKEN }}
-          branch: ${{ github.ref }}
+          branch: main
         
